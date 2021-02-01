@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({Key key, this.iconColor, this.logoSize, this.textColor})
+  const Logo({Key key, this.iconColor, @required this.logoSize, this.textColor})
       : super(key: key);
 
   final Color iconColor;
