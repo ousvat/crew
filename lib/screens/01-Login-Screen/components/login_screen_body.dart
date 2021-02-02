@@ -1,4 +1,5 @@
 import 'package:Crew/components/logo.dart';
+import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -72,7 +73,11 @@ class LoginScreenBody extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         onPressed: () {
-                          //TODO: code for sign in
+                          //TODO: replace with code for sign in
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeScreen()));
                         },
                       ),
                     )
