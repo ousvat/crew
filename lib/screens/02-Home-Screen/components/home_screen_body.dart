@@ -1,5 +1,8 @@
+import 'package:Crew/components/circle_with_stamp.dart';
 import 'package:Crew/components/logo.dart';
+import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class HomeScreenBody extends StatefulWidget {
   HomeScreenBody({Key key}) : super(key: key);
@@ -41,7 +44,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
 
           //* Scan Receipt card
           Positioned(
-            top: 120,
+            top: 140,
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: Column(
@@ -51,7 +54,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                     color: Colors.white,
                     elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
+                      borderRadius: BorderRadius.circular(14.0),
                     ),
                     child: Container(
                       width: width - 80,
@@ -61,10 +64,82 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           Text(
                             'Earn a reward after every 7 stamps.\nOne stamp equals \$20',
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 14),
+                                fontWeight: FontWeight.bold, fontSize: 15),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 70),
+                          SizedBox(height: 50),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                              CircleWithStamp(
+                                haveStamp: true,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 40),
+                          Container(
+                            width: width / 5,
+                            height: width / 5,
+                            margin: EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              color: Colors.red.withOpacity(.15),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: Icon(
+                                CrewIcons.gift,
+                                color: Theme.of(context).accentColor,
+                                size: width / 8,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          Container(
+                            width: width / 2,
+                            child: FlatButton(
+                              child: Text(
+                                "SCAN RECEIPT",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                              textColor: Colors.white,
+                              color: Theme.of(context).primaryColor,
+                              padding: EdgeInsets.all(16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(8),
+                                    topRight: Radius.circular(8)),
+                              ),
+                              onPressed: () {
+                                // //TODO: replace with navigation to scanning reipt screen
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) => HomeScreen()));
+                              },
+                            ),
+                          ),
                         ],
                       ),
                     ),
