@@ -1,4 +1,5 @@
 import 'package:Crew/screens/02-Home-Screen/components/home_screen_body.dart';
+import 'package:Crew/screens/03-History-Screen/components/history_screen_body.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> screens = [HomeScreenBody(), HomeScreenBody()];
+  List<Widget> screens = [HomeScreenBody(), HistoryScreenBody()];
 
   @override
   Widget build(BuildContext context) {
