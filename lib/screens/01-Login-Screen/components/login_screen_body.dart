@@ -86,7 +86,7 @@ class LoginScreenBody extends StatelessWidget {
                                   builder: (context) => HomeScreen()));
 
                           /** Welcome dialog  */
-                          _showCongratsDialog(context, 2, 48.99);
+                          _showUploadReceipeDialog(context);
                         },
                       ),
                     )
@@ -296,6 +296,81 @@ class LoginScreenBody extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
+          ),
+        ));
+  }
+
+  // TODO: Move this method in it's place after backend implemented
+  void _showUploadReceipeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: -40,
+          title: Text(
+            'Upload Receipt',
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              color: Theme.of(context).primaryColor,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontSize: 28,
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Text(
+              'Your receipe will upload in background. We\'ll notify you when it\'s done.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          actions: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "OKAY",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  textColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  onPressed: () {
+                    //TODO: Upload the photo on Google API
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  textColor: Theme.of(context).primaryColor,
+                  color: Colors.transparent,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
           ),
         ));
   }
