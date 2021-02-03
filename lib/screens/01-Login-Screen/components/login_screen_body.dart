@@ -86,7 +86,7 @@ class LoginScreenBody extends StatelessWidget {
                                   builder: (context) => HomeScreen()));
 
                           /** Welcome dialog  */
-                          _showUploadReceipeDialog(context);
+                          _showWelcomeDialog(context);
                         },
                       ),
                     )
