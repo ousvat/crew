@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
-import 'package:Crew/components/circle_with_stamp.dart';
 import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/components/logo.dart';
 import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
+import 'package:Crew/services/phone_auth.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -79,14 +77,8 @@ class LoginScreenBody extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         onPressed: () {
-                          //TODO: replace with code for sign in
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomeScreen()));
-
-                          /** Welcome dialog  */
-                          _showWelcomeDialog(context);
+                         final mobile = _phoneController.text.trim();
+                          PhoneAuth.registerUser(mobile, context);
                         },
                       ),
                     )
@@ -374,4 +366,5 @@ class LoginScreenBody extends StatelessWidget {
           ),
         ));
   }
+
 }
