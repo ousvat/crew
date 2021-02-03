@@ -1,7 +1,13 @@
+import 'dart:ffi';
+
+import 'package:Crew/components/circle_with_stamp.dart';
+import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/components/logo.dart';
 import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
+import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key key}) : super(key: key);
@@ -74,10 +80,13 @@ class LoginScreenBody extends StatelessWidget {
                         ),
                         onPressed: () {
                           //TODO: replace with code for sign in
-                          Navigator.pushReplacement(
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HomeScreen()));
+
+                          /** Welcome dialog  */
+                          _showUploadReceipeDialog(context);
                         },
                       ),
                     )
@@ -98,5 +107,271 @@ class LoginScreenBody extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void _showWelcomeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: 60,
+          title: Text(
+            'Welcome!',
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              color: Theme.of(context).primaryColor,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontSize: 45,
+            ),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: Text(
+              'How it works',
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).disabledColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 25,
+              ),
+            ),
+          ),
+          content: Material(
+            color: Colors.white,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: Icon(
+                    CrewIcons.shopping_basket,
+                    color: Theme.of(context).accentColor,
+                    size: 30,
+                  ),
+                  title: Text(
+                    'Make a purchase',
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Theme.of(context).primaryColor,
+                      fontFamily: GoogleFonts.roboto().fontFamily,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: Icon(
+                    CrewIcons.receipt,
+                    color: Theme.of(context).accentColor,
+                    size: 30,
+                  ),
+                  title: Text(
+                    'Upload a receipt',
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Theme.of(context).primaryColor,
+                      fontFamily: GoogleFonts.roboto().fontFamily,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  leading: Icon(
+                    CrewIcons.gift,
+                    color: Theme.of(context).accentColor,
+                    size: 30,
+                  ),
+                  title: Text(
+                    'Earn rewards',
+                    style: TextStyle(
+                      decoration: TextDecoration.none,
+                      color: Theme.of(context).primaryColor,
+                      fontFamily: GoogleFonts.roboto().fontFamily,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: Container(
+            width: double.maxFinite,
+            child: FlatButton(
+              child: Text(
+                "GOT IT",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              padding: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ));
+  }
+
+  // TODO: Move this method in it's place after backend implemented
+  void _showCongratsDialog(BuildContext context, int stamps, double money) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: -30,
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(
+              'Congratulations!',
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 26,
+              ),
+            ),
+          ),
+          title: Stack(
+            overflow: Overflow.visible,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                margin: EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                    width: 2,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 7.5,
+                left: 7.5,
+                child: Icon(
+                  CrewIcons.crosshairs,
+                  size: 45,
+                  color: Theme.of(context).accentColor,
+                ),
+              )
+            ],
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+            child: Text(
+              'You earned $stamps stamps from a \$$money purchase.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          actions: Container(
+            width: double.maxFinite,
+            child: FlatButton(
+              child: Text(
+                "YAY",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              padding: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ));
+  }
+
+  // TODO: Move this method in it's place after backend implemented
+  void _showUploadReceipeDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: -40,
+          title: Text(
+            'Upload Receipt',
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              color: Theme.of(context).primaryColor,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontSize: 28,
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Text(
+              'Your receipe will upload in background. We\'ll notify you when it\'s done.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          actions: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "OKAY",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  textColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  onPressed: () {
+                    //TODO: Upload the photo on Google API
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  textColor: Theme.of(context).primaryColor,
+                  color: Colors.transparent,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

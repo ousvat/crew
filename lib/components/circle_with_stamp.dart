@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class CircleWithStamp extends StatefulWidget {
-  CircleWithStamp({Key key, @required this.haveStamp}) : super(key: key);
+  CircleWithStamp({Key key, @required this.haveStamp, this.centerStamp: false})
+      : super(key: key);
 
   final bool haveStamp;
+
+  final bool centerStamp;
   @override
   _CircleWithStampState createState() => _CircleWithStampState();
 }
@@ -33,8 +36,8 @@ class _CircleWithStampState extends State<CircleWithStamp> {
         ),
         widget.haveStamp
             ? Positioned(
-                top: _randomDouble(),
-                left: _randomDouble(),
+                top: widget.centerStamp ? 2 : _randomDouble(),
+                left: widget.centerStamp ? 2 : _randomDouble(),
                 child: Icon(
                   CrewIcons.crosshairs,
                   size: width - 5,
