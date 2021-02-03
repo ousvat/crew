@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:Crew/components/circle_with_stamp.dart';
 import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/components/logo.dart';
 import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
@@ -85,7 +86,7 @@ class LoginScreenBody extends StatelessWidget {
                                   builder: (context) => HomeScreen()));
 
                           /** Welcome dialog  */
-                          _showWelcomeDialog(context);
+                          _showCongratsDialog(context, 2, 48.99);
                         },
                       ),
                     )
@@ -203,6 +204,86 @@ class LoginScreenBody extends StatelessWidget {
             child: FlatButton(
               child: Text(
                 "GOT IT",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              ),
+              textColor: Colors.white,
+              color: Theme.of(context).primaryColor,
+              padding: EdgeInsets.all(16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ));
+  }
+
+  // TODO: Move this method in it's place after backend implemented
+  void _showCongratsDialog(BuildContext context, int stamps, double money) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: -30,
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Text(
+              'Congratulations!',
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 26,
+              ),
+            ),
+          ),
+          title: Stack(
+            overflow: Overflow.visible,
+            children: [
+              Container(
+                width: 60,
+                height: 60,
+                margin: EdgeInsets.all(0),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Theme.of(context).primaryColor,
+                    width: 2,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 7.5,
+                left: 7.5,
+                child: Icon(
+                  CrewIcons.crosshairs,
+                  size: 45,
+                  color: Theme.of(context).accentColor,
+                ),
+              )
+            ],
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+            child: Text(
+              'You earned $stamps stamps from a \$$money purchase.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          actions: Container(
+            width: double.maxFinite,
+            child: FlatButton(
+              child: Text(
+                "YAY",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
               textColor: Colors.white,
