@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362321921426",
+    "project_id": "crew-75596",
+    "storage_bucket": "crew-75596.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362321921426:android:7886e5d5f0413170dd6d4b",
+        "android_client_info": {
+          "package_name": "com.ovidiuusvat.crew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362321921426-5f83qotpgs9cksk7ott2l22ls62jlkma.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBASvMT76G9qnIQxaqiH685_ovaE4FwVew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362321921426-5f83qotpgs9cksk7ott2l22ls62jlkma.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

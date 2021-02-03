@@ -1,8 +1,11 @@
 import 'package:Crew/screens/00-Splash-Screen/splash_screen.dart';
 import 'package:Crew/theme/default_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
