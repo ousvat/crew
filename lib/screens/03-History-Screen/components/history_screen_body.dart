@@ -14,12 +14,8 @@ class _HistoryScreenBodyState extends State<HistoryScreenBody> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
-        // physics: BouncingScrollPhysics(),
         children: [
           SizedBox(height: 30),
-          /**
-           * Here the list
-           */
           ListView(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
