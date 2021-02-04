@@ -1,6 +1,5 @@
 import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/components/logo.dart';
-import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
 import 'package:Crew/services/phone_auth.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +76,7 @@ class LoginScreenBody extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         onPressed: () {
-                         final mobile = _phoneController.text.trim();
+                          final mobile = _phoneController.text.trim();
                           PhoneAuth.registerUser(mobile, context);
                         },
                       ),
@@ -99,117 +98,6 @@ class LoginScreenBody extends StatelessWidget {
         )
       ],
     );
-  }
-
-  void _showWelcomeDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        child: CrewAlertDialog(
-          heightRegulation: 60,
-          title: Text(
-            'Welcome!',
-            style: TextStyle(
-              decoration: TextDecoration.none,
-              color: Theme.of(context).primaryColor,
-              fontFamily: GoogleFonts.roboto().fontFamily,
-              fontSize: 45,
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              'How it works',
-              style: TextStyle(
-                decoration: TextDecoration.none,
-                color: Theme.of(context).disabledColor,
-                fontFamily: GoogleFonts.roboto().fontFamily,
-                fontSize: 25,
-              ),
-            ),
-          ),
-          content: Material(
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.shopping_basket,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Make a purchase',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.receipt,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Upload a receipt',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.gift,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Earn rewards',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: Container(
-            width: double.maxFinite,
-            child: FlatButton(
-              child: Text(
-                "GOT IT",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-              ),
-              textColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        ));
   }
 
   // TODO: Move this method in it's place after backend implemented
@@ -366,5 +254,4 @@ class LoginScreenBody extends StatelessWidget {
           ),
         ));
   }
-
 }
