@@ -1,6 +1,8 @@
 import 'package:Crew/components/circle_with_stamp.dart';
 import 'package:Crew/components/logo.dart';
+import 'package:Crew/screens/04-Take-Photo-Screen/take_photo_screen.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -131,12 +133,17 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                     topLeft: Radius.circular(8),
                                     topRight: Radius.circular(8)),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 // //TODO: replace with navigation to scanning reipt screen
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => HomeScreen()));
+                                
+                                WidgetsFlutterBinding.ensureInitialized();
+                                final cameras = await availableCameras();
+                                final firstCamera = cameras.first;
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TakePhotoScreen(camera: firstCamera)));
                               },
                             ),
                           ),
