@@ -1,7 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
+import 'package:Crew/components/crew_alert_dialog.dart';
+import 'package:Crew/services/google_vision.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TakePhotoScreen extends StatefulWidget {
   TakePhotoScreen({Key key, @required this.camera}) : super(key: key);
@@ -34,8 +38,8 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
   }
 
   @override
-  @override
   Widget build(BuildContext context) {
+    // _detectReceipt();
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -109,60 +113,114 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
             }
           },
         ),
-        // floatingActionButton: FloatingActionButton(
-        //   child: Icon(Icons.camera_alt),
-        //   // Provide an onPressed callback.
-        //   onPressed: () async {
-        //     // Take the Picture in a try / catch block. If anything goes wrong,
-        //     // catch the error.
-        //     try {
-        //       // Ensure that the camera is initialized.
-        //       await _initializeControllerFuture;
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Theme.of(context).primaryColor,
+          child: Icon(Icons.camera_alt),
+          onPressed: () async {
+            try {
+              await _initializeControllerFuture;
 
-        //       // Construct the path where the image should be saved using the
-        //       // pattern package.
-        //       // final path = join(
-        //       //   // Store the picture in the temp directory.
-        //       //   // Find the temp directory using the `path_provider` plugin.
-        //       //   (await getTemporaryDirectory()).path,
-        //       //   '${DateTime.now()}.png',
-        //       // );
+              var path = await _controller.takePicture();
 
-        //       // Attempt to take a picture and log where it's been saved.
-        //       var path = await _controller.takePicture();
-
-        //       // If the picture was taken, display it on a new screen.
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(
-        //           builder: (context) =>
-        //               DisplayPictureScreen(imagePath: path.path),
-        //         ),
-        //       );
-        //     } catch (e) {
-        //       // If an error occurs, log the error to the console.
-        //       print(e);
-        //     }
-        //   },
-        // ),
+              _showUploadReceipeDialog(context, path.path);
+            } catch (e) {
+              print(e);
+            }
+          },
+        ),
       ),
     );
   }
-}
 
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    print(imagePath);
-    return Scaffold(
-      appBar: AppBar(title: Text('Display the Picture')),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
-    );
+  void _showUploadReceipeDialog(BuildContext context, imagePath) {
+    showDialog(
+        context: context,
+        child: CrewAlertDialog(
+          heightRegulation: -40,
+          title: Text(
+            'Upload Receipt',
+            style: TextStyle(
+              decoration: TextDecoration.none,
+              color: Theme.of(context).primaryColor,
+              fontFamily: GoogleFonts.roboto().fontFamily,
+              fontSize: 28,
+            ),
+          ),
+          content: Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Text(
+              'Your receipe will upload in background. We\'ll notify you when it\'s done.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.none,
+                color: Theme.of(context).primaryColor,
+                fontFamily: GoogleFonts.roboto().fontFamily,
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ),
+          actions: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "OKAY",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  textColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  onPressed: () {
+                    //TODO: Upload the photo on Google API
+                    Navigator.pop(context);
+                    AnalyzePhoto().getResponse(imagePath);
+                  },
+                ),
+              ),
+              Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "Cancel",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                  textColor: Theme.of(context).primaryColor,
+                  color: Colors.transparent,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }
+
+// class DisplayPictureScreen extends StatelessWidget {
+//   final String imagePath;
+
+//   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     print(imagePath);
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Display the Picture')),
+//       // The image is stored as a file on the device. Use the `Image.file`
+//       // constructor with the given path to display the image.
+//       body: Image.file(File(imagePath)),
+//     );
+//   }
+// }
