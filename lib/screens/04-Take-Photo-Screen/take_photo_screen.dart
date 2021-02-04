@@ -178,7 +178,7 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
                   onPressed: () {
                     //TODO: Upload the photo on Google API
                     Navigator.pop(context);
-                    AnalyzePhoto().getResponse(imagePath);
+                    AnalyzePhoto().getResponse(imagePath, context);
                   },
                 ),
               ),

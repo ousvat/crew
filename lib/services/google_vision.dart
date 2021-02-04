@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:Crew/models/scan_result.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:googleapis/vision/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
@@ -25,7 +26,7 @@ class CredentialsProvider {
 class AnalyzePhoto {
   var _client = CredentialsProvider().client;
 
-  Future<ScanResult> getResponse(String image) async {
+  Future<ScanResult> getResponse(String image, BuildContext context) async {
     final bytes = Io.File(image).readAsBytesSync();
 
     String img64 = base64Encode(bytes);

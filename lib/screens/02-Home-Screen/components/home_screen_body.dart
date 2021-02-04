@@ -6,6 +6,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:countup/countup.dart';
 
 class HomeScreenBody extends StatefulWidget {
   HomeScreenBody({Key key}) : super(key: key);
@@ -40,6 +41,21 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           logoSize: 60,
                           iconColor: Theme.of(context).accentColor,
                           textColor: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      Positioned(
+                        top: 50,
+                        left: 15,
+                        child: Countup(
+                          suffix: '%',
+                          duration: Duration(seconds: 1),
+                          end: 75,
+                          begin: 0,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).accentColor,
+                          ),
                         ),
                       ),
                     ],
