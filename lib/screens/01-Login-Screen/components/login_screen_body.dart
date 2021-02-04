@@ -10,6 +10,8 @@ class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key key}) : super(key: key);
 
   final _phoneController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -37,26 +39,37 @@ class LoginScreenBody extends StatelessWidget {
                     SizedBox(
                       height: 40,
                     ),
-                    TextFormField(
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide:
-                                BorderSide(color: Colors.grey.shade300)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
-                            borderSide: BorderSide(color: Colors.grey[300])),
-                        filled: false,
-                        hintText: "Phone Number",
-                        hintStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey.shade300),
+                    Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold),
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8)),
+                              borderSide: BorderSide(color: Colors.grey[300])),
+                          filled: false,
+                          hintText: "Phone Number",
+                          hintStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey.shade300),
+                        ),
+                        controller: _phoneController,
+                        keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return 'Number can\'t be empty';
+                          else
+                            return null;
+                        },
                       ),
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
                     ),
                     SizedBox(
                       height: 16,
@@ -77,7 +90,9 @@ class LoginScreenBody extends StatelessWidget {
                         ),
                         onPressed: () {
                           final mobile = _phoneController.text.trim();
-                          PhoneAuth.registerUser(mobile, context);
+                          print(_formKey.currentState.validate());
+                          if (_formKey.currentState.validate())
+                            PhoneAuth.registerUser(mobile, context);
                         },
                       ),
                     )

@@ -21,6 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  path: ^1.7.0
+  path_provider: ^1.6.27
+  camera: ^0.7.0+2
   intl: ^0.16.1
   firebase_auth: ^0.20.0+1
   firebase_core: ^0.7.0
