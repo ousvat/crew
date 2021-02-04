@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_animation_progress_bar: ^1.0.6
   googleapis_auth: ^0.2.12+1
   googleapis: ^0.56.1
   path: ^1.7.0
