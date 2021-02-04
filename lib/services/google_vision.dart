@@ -1,6 +1,8 @@
 import 'dart:io' as Io;
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:Crew/models/scan_result.dart';
 import 'package:flutter/services.dart';
 import 'package:googleapis/vision/v1.dart';
 import 'package:googleapis_auth/auth_io.dart';
@@ -23,7 +25,7 @@ class CredentialsProvider {
 class AnalyzePhoto {
   var _client = CredentialsProvider().client;
 
-  Future<void> getResponse(String image) async {
+  Future<ScanResult> getResponse(String image) async {
     final bytes = Io.File(image).readAsBytesSync();
 
     String img64 = base64Encode(bytes);
@@ -39,16 +41,23 @@ class AnalyzePhoto {
         }
       ]
     }));
-    print('Response:');
-    print(_response.toString());
 
     var doubleRE = RegExp(r"\d+[.]\d{2} ");
-    var text = _response.responses[0].fullTextAnnotation.text;
+    var text;
+    if (_response.responses[0].fullTextAnnotation != null)
+      text = _response.responses[0].fullTextAnnotation.text;
+    else
+      return null;
     text = text.replaceAll(RegExp(r'[a-zA-Z]'), '');
     print(text); //TODO: Delete prints after implementation
     var numbers =
         doubleRE.allMatches(text).map((m) => double.parse(m[0])).toList();
     print(numbers);
     print(numbers.runtimeType);
+
+    var price = numbers.reduce(max);
+    var stamps = (price / 20).truncate();
+
+    return ScanResult(money: price, stamps: stamps);
   }
 }

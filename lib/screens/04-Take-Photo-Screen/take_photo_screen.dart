@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:Crew/components/crew_alert_dialog.dart';
+import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
 import 'package:Crew/services/google_vision.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,6 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
           future: _initializeControllerFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              // If the Future is complete, display the preview.
               return Stack(
                 children: [
                   Container(
@@ -59,7 +58,6 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
                       child: Container(
                         width: size.width,
                         height: 180,
-                        // color: Colors.red,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(18),
@@ -108,7 +106,6 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
                 ],
               );
             } else {
-              // Otherwise, display a loading indicator.
               return Center(child: CircularProgressIndicator());
             }
           },
@@ -121,7 +118,8 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
               await _initializeControllerFuture;
 
               var path = await _controller.takePicture();
-
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()));
               _showUploadReceipeDialog(context, path.path);
             } catch (e) {
               print(e);
@@ -207,20 +205,3 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
         ));
   }
 }
-
-// class DisplayPictureScreen extends StatelessWidget {
-//   final String imagePath;
-
-//   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     print(imagePath);
-//     return Scaffold(
-//       appBar: AppBar(title: Text('Display the Picture')),
-//       // The image is stored as a file on the device. Use the `Image.file`
-//       // constructor with the given path to display the image.
-//       body: Image.file(File(imagePath)),
-//     );
-//   }
-// }
