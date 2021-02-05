@@ -6,7 +6,6 @@ import 'dart:math';
 import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/models/history_data.dart';
 import 'package:Crew/providers/app_data_provider.dart';
-import 'package:Crew/screens/03-History-Screen/components/history_list_item.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:Crew/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
@@ -74,10 +73,8 @@ class AnalyzePhoto {
     }
     text = text.replaceAll(RegExp(r'[a-zA-Z]'), '');
     text = text.replaceAll(RegExp(r'(\r\n|\r|\n)'), ' ');
-    print(text); //TODO: Delete prints after implementation
     var numbers =
         doubleRE.allMatches(text).map((m) => double.parse(m[0])).toList();
-    print(numbers);
 
     var price = numbers.reduce(max) ?? 0;
     var stamps = (price / 20).truncate();

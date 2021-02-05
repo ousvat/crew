@@ -1,10 +1,7 @@
-import 'package:Crew/components/crew_alert_dialog.dart';
 import 'package:Crew/components/logo.dart';
 import 'package:Crew/services/phone_auth.dart';
-import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key key}) : super(key: key);
@@ -114,9 +111,4 @@ class LoginScreenBody extends StatelessWidget {
       ],
     );
   }
-
-  // TODO: Move this method in it's place after backend implemented
-  
-  // TODO: Move this method in it's place after backend implemented
-  
 }

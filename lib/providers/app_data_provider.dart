@@ -1,6 +1,5 @@
 import 'package:Crew/models/history_data.dart';
 import 'package:Crew/models/home_data.dart';
-import 'package:Crew/screens/03-History-Screen/components/history_list_item.dart';
 import 'package:Crew/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 

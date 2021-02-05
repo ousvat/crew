@@ -54,7 +54,8 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                               left: 15,
                               child: Countup(
                                 suffix: '%',
-                                duration: Duration(milliseconds: 50 * loadingPercent),
+                                duration:
+                                    Duration(milliseconds: 50 * loadingPercent),
                                 end: double.parse(loadingPercent.toString()),
                                 begin: 0,
                                 style: TextStyle(
@@ -163,8 +164,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                         topRight: Radius.circular(8)),
                                   ),
                                   onPressed: () async {
-                                    // //TODO: replace with navigation to scanning reipt screen
-
                                     WidgetsFlutterBinding.ensureInitialized();
                                     final cameras = await availableCameras();
                                     final firstCamera = cameras.first;

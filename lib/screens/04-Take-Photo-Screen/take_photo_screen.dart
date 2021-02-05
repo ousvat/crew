@@ -176,7 +176,6 @@ class _TakePhotoScreenState extends State<TakePhotoScreen> {
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   onPressed: () {
-                    //TODO: Upload the photo on Google API
                     Navigator.pop(context);
                     AnalyzePhoto().getResponse(imagePath, context);
                   },
