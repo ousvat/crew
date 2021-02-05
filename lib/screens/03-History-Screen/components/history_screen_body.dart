@@ -1,8 +1,6 @@
 import 'package:Crew/providers/app_data_provider.dart';
 import 'package:Crew/screens/03-History-Screen/components/history_list_item.dart';
-import 'package:Crew/utils/enums.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class HistoryScreenBody extends StatefulWidget {

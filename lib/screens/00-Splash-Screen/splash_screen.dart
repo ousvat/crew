@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:Crew/components/logo.dart';
 import 'package:Crew/screens/01-Login-Screen/login_screen.dart';
-import 'package:Crew/screens/02-Home-Screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,11 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 1),
         () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    HomeScreen() //TODO: Replace with login screen after implementing camera screen
-                )));
+            context, MaterialPageRoute(builder: (context) => LoginScreen())));
   }
 
   @override
