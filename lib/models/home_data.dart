@@ -1,30 +1,7 @@
-import 'package:flutter/cupertino.dart';
+class HomeData {
+  bool showLoading = false;
 
-class HomeData extends ChangeNotifier {
-  bool _showLoading = false;
+  int currentStamps = 0;
 
-  bool get showLoading => _showLoading;
-
-  set showLoading(bool showLoading) {
-    _showLoading = showLoading;
-    notifyListeners();
-  }
-
-  int _currentStamps = 0;
-
-  int get currentStamps => _currentStamps;
-
-  set currentStamps(int currentStamps) {
-    _currentStamps = currentStamps;
-    notifyListeners();
-  }
-
-  int _loadingPercent = 0;
-
-  int get loadingPercent => _loadingPercent;
-
-  set loadingPercent(int loadingPercent) {
-    _loadingPercent = loadingPercent;
-    notifyListeners();
-  }
+  int loadingPercent = 0;
 }
