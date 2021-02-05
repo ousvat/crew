@@ -1,6 +1,9 @@
+import 'package:Crew/providers/app_data_provider.dart';
 import 'package:Crew/screens/03-History-Screen/components/history_list_item.dart';
+import 'package:Crew/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class HistoryScreenBody extends StatefulWidget {
   const HistoryScreenBody({Key key}) : super(key: key);
@@ -12,6 +15,7 @@ class HistoryScreenBody extends StatefulWidget {
 class _HistoryScreenBodyState extends State<HistoryScreenBody> {
   @override
   Widget build(BuildContext context) {
+    var list = Provider.of<AppData>(context).historyList;
     return SafeArea(
       child: Stack(
         children: [
@@ -22,42 +26,16 @@ class _HistoryScreenBodyState extends State<HistoryScreenBody> {
             padding: EdgeInsets.only(right: 30, left: 30),
             children: [
               SizedBox(height: 120),
-              HistoryListItem(
-                type: HistoryListItemType.rewardEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-              ),
-              SizedBox(height: 20),
-              HistoryListItem(
-                type: HistoryListItemType.stampsEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-                stamps: 1,
-                money: 156.5,
-              ),
-              SizedBox(height: 20),
-              HistoryListItem(
-                type: HistoryListItemType.stampsEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-                stamps: 3,
-                money: 23.3,
-              ),
-              SizedBox(height: 30),
-              HistoryListItem(
-                type: HistoryListItemType.rewardEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-              ),
-              SizedBox(height: 20),
-              HistoryListItem(
-                type: HistoryListItemType.stampsEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-                stamps: 1,
-                money: 156.5,
-              ),
-              SizedBox(height: 20),
-              HistoryListItem(
-                type: HistoryListItemType.stampsEarned,
-                date: DateFormat('dd/MM/yy').format(DateTime.now()),
-                stamps: 3,
-                money: 23.3,
+              ListView.separated(
+                itemCount: list.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return HistoryListItem(historyData: list[index]);
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: 20);
+                },
               ),
               SizedBox(height: 30),
               Text(

@@ -1,5 +1,6 @@
 import 'package:Crew/components/circle_with_stamp.dart';
 import 'package:Crew/components/logo.dart';
+import 'package:Crew/providers/app_data_provider.dart';
 import 'package:Crew/screens/04-Take-Photo-Screen/take_photo_screen.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
 import 'package:camera/camera.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:countup/countup.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreenBody extends StatefulWidget {
   HomeScreenBody({Key key}) : super(key: key);
@@ -18,6 +20,9 @@ class HomeScreenBody extends StatefulWidget {
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   Widget build(BuildContext context) {
+    var showLoading = Provider.of<AppData>(context).showLoading;
+    var loadingPercent = Provider.of<AppData>(context).loadingPercent;
+    var stamps = Provider.of<AppData>(context).currentStamps;
     var width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Stack(
@@ -43,21 +48,23 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                           textColor: Theme.of(context).primaryColor,
                         ),
                       ),
-                      Positioned(
-                        top: 50,
-                        left: 15,
-                        child: Countup(
-                          suffix: '%',
-                          duration: Duration(seconds: 1),
-                          end: 75,
-                          begin: 0,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).accentColor,
-                          ),
-                        ),
-                      ),
+                      showLoading
+                          ? Positioned(
+                              top: 50,
+                              left: 15,
+                              child: Countup(
+                                suffix: '%',
+                                duration: Duration(milliseconds: 50 * loadingPercent),
+                                end: double.parse(loadingPercent.toString()),
+                                begin: 0,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                            )
+                          : SizedBox(),
                     ],
                   ),
                 ),
@@ -94,13 +101,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 0 ? true : false,
                                   ),
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 1 ? true : false,
                                   ),
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 2 ? true : false,
                                   ),
                                 ],
                               ),
@@ -110,13 +117,13 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 3 ? true : false,
                                   ),
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 4 ? true : false,
                                   ),
                                   CircleWithStamp(
-                                    haveStamp: true,
+                                    haveStamp: stamps > 5 ? true : false,
                                   ),
                                 ],
                               ),
@@ -181,21 +188,25 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
               ),
             ],
           ),
-          FAProgressBar(
-            progressColor: Theme.of(context).primaryColor,
-            borderRadius: 10,
-            animatedDuration: Duration(seconds: 1),
-            size: 10,
-            currentValue: 75,
-            maxValue: 100,
-          ),
-          FAProgressBar(
-            progressColor: Theme.of(context).primaryColor,
-            borderRadius: 0,
-            size: 10,
-            currentValue: 3,
-            maxValue: 100,
-          ),
+          showLoading
+              ? FAProgressBar(
+                  progressColor: Theme.of(context).primaryColor,
+                  borderRadius: 10,
+                  animatedDuration: Duration(milliseconds: 50 * loadingPercent),
+                  size: 10,
+                  currentValue: loadingPercent,
+                  maxValue: 100,
+                )
+              : SizedBox(),
+          showLoading
+              ? FAProgressBar(
+                  progressColor: Theme.of(context).primaryColor,
+                  borderRadius: 0,
+                  size: 10,
+                  currentValue: loadingPercent < 3 ? 1 : 3,
+                  maxValue: 100,
+                )
+              : SizedBox(),
         ],
       ),
     );

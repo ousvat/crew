@@ -1,0 +1,1 @@
+enum HistoryListItemType { rewardEarned, stampsEarned }
