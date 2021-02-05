@@ -4,9 +4,11 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:Crew/components/crew_alert_dialog.dart';
-import 'package:Crew/models/scan_result.dart';
+import 'package:Crew/models/history_data.dart';
 import 'package:Crew/providers/app_data_provider.dart';
+import 'package:Crew/screens/03-History-Screen/components/history_list_item.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
+import 'package:Crew/utils/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -164,6 +166,14 @@ class AnalyzePhoto {
                 Provider.of<AppData>(context, listen: false).showLoading =
                     false;
                 Provider.of<AppData>(context, listen: false).loadingPercent = 0;
+                Provider.of<AppData>(context, listen: false).historyList.insert(
+                    0,
+                    HistoryData(
+                      type: HistoryListItemType.stampsEarned,
+                      stamps: stamps,
+                      money: money,
+                      date: DateTime.now(),
+                    ));
                 Provider.of<AppData>(context, listen: false).currentStamps +=
                     stamps;
                 Navigator.pop(context);

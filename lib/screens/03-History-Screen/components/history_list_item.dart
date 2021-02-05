@@ -1,25 +1,13 @@
+import 'package:Crew/models/history_data.dart';
 import 'package:Crew/theme/icons/crew_icons_icons.dart';
+import 'package:Crew/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-enum HistoryListItemType { rewardEarned, stampsEarned }
-
 class HistoryListItem extends StatefulWidget {
-  HistoryListItem({
-    Key key,
-    @required this.date,
-    @required this.type,
-    this.money,
-    this.stamps,
-  }) : super(key: key);
+  HistoryListItem({Key key, @required this.historyData}) : super(key: key);
 
-  final HistoryListItemType type;
-
-  final date;
-
-  final double money;
-
-  final int stamps;
+  final HistoryData historyData;
 
   @override
   _HistoryListItemState createState() => _HistoryListItemState();
@@ -36,7 +24,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
   Widget build(BuildContext context) {
     SchedulerBinding.instance.addPostFrameCallback(postFrameCallback);
     var width = MediaQuery.of(context).size.width - 60;
-    bool isReward = widget.type == HistoryListItemType.rewardEarned;
+    bool isReward = widget.historyData.type == HistoryListItemType.rewardEarned;
     return Stack(
       children: [
         Container(
@@ -63,7 +51,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
                     Padding(
                       padding: const EdgeInsets.only(top: 12.0),
                       child: Text(
-                        widget.date,
+                        widget.historyData.date,
                         style: TextStyle(color: Colors.grey.shade400),
                       ),
                     ),
@@ -75,7 +63,7 @@ class _HistoryListItemState extends State<HistoryListItem> {
                         : Padding(
                             padding: const EdgeInsets.only(top: 12.0),
                             child: Text(
-                              '\$${widget.money.toString()}',
+                              '\$${widget.historyData.money.toString()}',
                               style: TextStyle(color: Colors.grey.shade400),
                             ),
                           ),
@@ -109,8 +97,8 @@ class _HistoryListItemState extends State<HistoryListItem> {
                       : Padding(
                           padding: const EdgeInsets.only(top: 3.0),
                           child: Text(
-                            '+${widget.stamps}' +
-                                (widget.stamps > 1 ? ' stamps' : ' stamp'),
+                            '+${widget.historyData.stamps}' +
+                                (widget.historyData.stamps > 1 ? ' stamps' : ' stamp'),
                             style: TextStyle(
                               color: Colors.white,
                             ),
