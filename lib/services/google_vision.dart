@@ -163,14 +163,17 @@ class AnalyzePhoto {
                 Provider.of<AppData>(context, listen: false).showLoading =
                     false;
                 Provider.of<AppData>(context, listen: false).loadingPercent = 0;
-                Provider.of<AppData>(context, listen: false).historyList.insert(
-                    0,
-                    HistoryData(
-                      type: HistoryListItemType.stampsEarned,
-                      stamps: stamps,
-                      money: money,
-                      date: DateTime.now(),
-                    ));
+                if (stamps > 0)
+                  Provider.of<AppData>(context, listen: false)
+                      .historyList
+                      .insert(
+                          0,
+                          HistoryData(
+                            type: HistoryListItemType.stampsEarned,
+                            stamps: stamps,
+                            money: money,
+                            date: DateTime.now(),
+                          ));
                 Provider.of<AppData>(context, listen: false).currentStamps +=
                     stamps;
                 Navigator.pop(context);
