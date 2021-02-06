@@ -35,7 +35,9 @@ class CrewAlertDialog extends StatelessWidget {
           child: Container(
             height: size.height < 650
                 ? size.height / 2 + 70 + (heightRegulation ?? 0)
-                : size.height / 2 + (heightRegulation ?? 0),
+                : (size.height < 400
+                    ? size.height - 20 + (heightRegulation ?? 0)
+                    : size.height / 2 + (heightRegulation ?? 0)),
             width: size.width - 60,
             decoration: new BoxDecoration(
               shape: BoxShape.rectangle,
