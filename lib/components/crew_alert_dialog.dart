@@ -24,6 +24,7 @@ class CrewAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    print('Height: ' + size.height.toString());
     return Container(
       color: Colors.white.withOpacity(.2),
       width: size.width,
@@ -32,7 +33,9 @@ class CrewAlertDialog extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
         child: Center(
           child: Container(
-            height: size.height / 2 + (heightRegulation ?? 0),
+            height: size.height < 650
+                ? size.height / 2 + 70 + (heightRegulation ?? 0)
+                : size.height / 2 + (heightRegulation ?? 0),
             width: size.width - 60,
             decoration: new BoxDecoration(
               shape: BoxShape.rectangle,

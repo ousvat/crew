@@ -29,6 +29,126 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
         children: [
           Stack(
             children: [
+              //* Scan Receipt card
+              ListView(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  SizedBox(height: 140),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Card(
+                          color: Colors.white,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14.0),
+                          ),
+                          child: Container(
+                            width: width - 80,
+                            child: Column(
+                              children: [
+                                SizedBox(height: 50),
+                                Text(
+                                  'Earn a reward after every 7 stamps.\nOne stamp equals \$20',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                  textAlign: TextAlign.center,
+                                ),
+                                SizedBox(height: 50),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 0 ? true : false,
+                                    ),
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 1 ? true : false,
+                                    ),
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 2 ? true : false,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 20),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 3 ? true : false,
+                                    ),
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 4 ? true : false,
+                                    ),
+                                    CircleWithStamp(
+                                      haveStamp: stamps > 5 ? true : false,
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 40),
+                                Container(
+                                  width: width / 5,
+                                  height: width / 5,
+                                  margin: EdgeInsets.all(0),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withOpacity(.15),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      CrewIcons.gift,
+                                      color: Theme.of(context).accentColor,
+                                      size: width / 8,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 20),
+                                Container(
+                                  width: width / 2,
+                                  child: FlatButton(
+                                    child: Text(
+                                      "SCAN RECEIPT",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    textColor: Colors.white,
+                                    color: Theme.of(context).primaryColor,
+                                    padding: EdgeInsets.all(16),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                    ),
+                                    onPressed: () async {
+                                      WidgetsFlutterBinding.ensureInitialized();
+                                      final cameras = await availableCameras();
+                                      final firstCamera = cameras.first;
+
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TakePhotoScreen(
+                                                      camera: firstCamera)));
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                ],
+              ),
               //* Top logo
               Positioned(
                 height: 120,
@@ -66,121 +186,6 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
                               ),
                             )
                           : SizedBox(),
-                    ],
-                  ),
-                ),
-              ),
-
-              //* Scan Receipt card
-              Positioned(
-                top: 140,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Card(
-                        color: Colors.white,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                        ),
-                        child: Container(
-                          width: width - 80,
-                          child: Column(
-                            children: [
-                              SizedBox(height: 50),
-                              Text(
-                                'Earn a reward after every 7 stamps.\nOne stamp equals \$20',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(height: 50),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 0 ? true : false,
-                                  ),
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 1 ? true : false,
-                                  ),
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 2 ? true : false,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 3 ? true : false,
-                                  ),
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 4 ? true : false,
-                                  ),
-                                  CircleWithStamp(
-                                    haveStamp: stamps > 5 ? true : false,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 40),
-                              Container(
-                                width: width / 5,
-                                height: width / 5,
-                                margin: EdgeInsets.all(0),
-                                decoration: BoxDecoration(
-                                  color: Colors.red.withOpacity(.15),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    CrewIcons.gift,
-                                    color: Theme.of(context).accentColor,
-                                    size: width / 8,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              Container(
-                                width: width / 2,
-                                child: FlatButton(
-                                  child: Text(
-                                    "SCAN RECEIPT",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  textColor: Colors.white,
-                                  color: Theme.of(context).primaryColor,
-                                  padding: EdgeInsets.all(16),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                  ),
-                                  onPressed: () async {
-                                    WidgetsFlutterBinding.ensureInitialized();
-                                    final cameras = await availableCameras();
-                                    final firstCamera = cameras.first;
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                TakePhotoScreen(
-                                                    camera: firstCamera)));
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),
