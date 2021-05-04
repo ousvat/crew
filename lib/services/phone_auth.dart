@@ -33,7 +33,7 @@ class PhoneAuth {
           final _codeController = TextEditingController();
           showDialog(
             context: context,
-            child: CrewAlertDialog(
+            builder: (_) => CrewAlertDialog(
               heightRegulation: -50,
               title: Text(
                 'Provide the code you received by SMS',
@@ -118,111 +118,111 @@ class PhoneAuth {
   static void _showWelcomeDialog(BuildContext context) {
     showDialog(
         context: context,
-        child: CrewAlertDialog(
-          heightRegulation: 60,
-          title: Text(
-            'Welcome!',
-            style: TextStyle(
-              decoration: TextDecoration.none,
-              color: Theme.of(context).primaryColor,
-              fontFamily: GoogleFonts.roboto().fontFamily,
-              fontSize: 45,
-            ),
-          ),
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: Text(
-              'How it works',
-              style: TextStyle(
-                decoration: TextDecoration.none,
-                color: Theme.of(context).disabledColor,
-                fontFamily: GoogleFonts.roboto().fontFamily,
-                fontSize: 25,
+        builder: (_) => CrewAlertDialog(
+              heightRegulation: 60,
+              title: Text(
+                'Welcome!',
+                style: TextStyle(
+                  decoration: TextDecoration.none,
+                  color: Theme.of(context).primaryColor,
+                  fontFamily: GoogleFonts.roboto().fontFamily,
+                  fontSize: 45,
+                ),
               ),
-            ),
-          ),
-          content: Material(
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.shopping_basket,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Make a purchase',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  'How it works',
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: Theme.of(context).disabledColor,
+                    fontFamily: GoogleFonts.roboto().fontFamily,
+                    fontSize: 25,
                   ),
                 ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.receipt,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Upload a receipt',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  leading: Icon(
-                    CrewIcons.gift,
-                    color: Theme.of(context).accentColor,
-                    size: 30,
-                  ),
-                  title: Text(
-                    'Earn rewards',
-                    style: TextStyle(
-                      decoration: TextDecoration.none,
-                      color: Theme.of(context).primaryColor,
-                      fontFamily: GoogleFonts.roboto().fontFamily,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          actions: Container(
-            width: double.maxFinite,
-            child: FlatButton(
-              child: Text(
-                "GOT IT",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
-              textColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+              content: Material(
+                color: Colors.white,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30),
+                    ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        CrewIcons.shopping_basket,
+                        color: Theme.of(context).accentColor,
+                        size: 30,
+                      ),
+                      title: Text(
+                        'Make a purchase',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).primaryColor,
+                          fontFamily: GoogleFonts.roboto().fontFamily,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        CrewIcons.receipt,
+                        color: Theme.of(context).accentColor,
+                        size: 30,
+                      ),
+                      title: Text(
+                        'Upload a receipt',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).primaryColor,
+                          fontFamily: GoogleFonts.roboto().fontFamily,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    ListTile(
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Icon(
+                        CrewIcons.gift,
+                        color: Theme.of(context).accentColor,
+                        size: 30,
+                      ),
+                      title: Text(
+                        'Earn rewards',
+                        style: TextStyle(
+                          decoration: TextDecoration.none,
+                          color: Theme.of(context).primaryColor,
+                          fontFamily: GoogleFonts.roboto().fontFamily,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        ));
+              actions: Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    "GOT IT",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  textColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ));
   }
 }

@@ -89,97 +89,98 @@ class AnalyzePhoto {
   void _showCongratsDialog(BuildContext context, int stamps, double money) {
     showDialog(
         context: context,
-        child: CrewAlertDialog(
-          heightRegulation: -30,
-          subtitle: Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Text(
-              stamps > 0 ? 'Congratulations!' : 'Sorry!',
-              style: TextStyle(
-                decoration: TextDecoration.none,
-                color: Theme.of(context).primaryColor,
-                fontFamily: GoogleFonts.roboto().fontFamily,
-                fontSize: 26,
-              ),
-            ),
-          ),
-          title: Stack(
-            overflow: Overflow.visible,
-            children: [
-              Container(
-                width: 60,
-                height: 60,
-                margin: EdgeInsets.all(0),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  shape: BoxShape.circle,
-                  border: Border.all(
+        builder: (_) => CrewAlertDialog(
+              heightRegulation: -30,
+              subtitle: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  stamps > 0 ? 'Congratulations!' : 'Sorry!',
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
                     color: Theme.of(context).primaryColor,
-                    width: 2,
+                    fontFamily: GoogleFonts.roboto().fontFamily,
+                    fontSize: 26,
                   ),
                 ),
               ),
-              Positioned(
-                top: 7.5,
-                left: 7.5,
-                child: Icon(
-                  CrewIcons.crosshairs,
-                  size: 45,
-                  color: Theme.of(context).accentColor,
+              title: Stack(
+                overflow: Overflow.visible,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    margin: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 7.5,
+                    left: 7.5,
+                    child: Icon(
+                      CrewIcons.crosshairs,
+                      size: 45,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  )
+                ],
+              ),
+              content: Padding(
+                padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
+                child: Text(
+                  stamps > 0
+                      ? 'You earned $stamps stamps from a \$$money purchase.'
+                      : 'Your purchase is lower than 20\$.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    decoration: TextDecoration.none,
+                    color: Theme.of(context).primaryColor,
+                    fontFamily: GoogleFonts.roboto().fontFamily,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ),
-              )
-            ],
-          ),
-          content: Padding(
-            padding: const EdgeInsets.only(top: 25, left: 10, right: 10),
-            child: Text(
-              stamps > 0
-                  ? 'You earned $stamps stamps from a \$$money purchase.'
-                  : 'Your purchase is lower than 20\$.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                decoration: TextDecoration.none,
-                color: Theme.of(context).primaryColor,
-                fontFamily: GoogleFonts.roboto().fontFamily,
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
               ),
-            ),
-          ),
-          actions: Container(
-            width: double.maxFinite,
-            child: FlatButton(
-              child: Text(
-                stamps > 0 ? 'YAY' : 'OH... OK',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+              actions: Container(
+                width: double.maxFinite,
+                child: FlatButton(
+                  child: Text(
+                    stamps > 0 ? 'YAY' : 'OH... OK',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  textColor: Colors.white,
+                  color: Theme.of(context).primaryColor,
+                  padding: EdgeInsets.all(16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  onPressed: () {
+                    Provider.of<AppData>(context, listen: false).showLoading =
+                        false;
+                    Provider.of<AppData>(context, listen: false)
+                        .loadingPercent = 0;
+                    if (stamps > 0)
+                      Provider.of<AppData>(context, listen: false)
+                          .historyList
+                          .insert(
+                              0,
+                              HistoryData(
+                                type: HistoryListItemType.stampsEarned,
+                                stamps: stamps,
+                                money: money,
+                                date: DateTime.now(),
+                              ));
+                    Provider.of<AppData>(context, listen: false)
+                        .currentStamps += stamps;
+                    Navigator.pop(context);
+                  },
+                ),
               ),
-              textColor: Colors.white,
-              color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.all(16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              onPressed: () {
-                Provider.of<AppData>(context, listen: false).showLoading =
-                    false;
-                Provider.of<AppData>(context, listen: false).loadingPercent = 0;
-                if (stamps > 0)
-                  Provider.of<AppData>(context, listen: false)
-                      .historyList
-                      .insert(
-                          0,
-                          HistoryData(
-                            type: HistoryListItemType.stampsEarned,
-                            stamps: stamps,
-                            money: money,
-                            date: DateTime.now(),
-                          ));
-                Provider.of<AppData>(context, listen: false).currentStamps +=
-                    stamps;
-                Navigator.pop(context);
-              },
-            ),
-          ),
-        ));
+            ));
   }
 }
